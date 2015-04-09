@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>ButtonEventHandler class</title>
+	<style type="text/css">
+html, body, div {
+	padding:0;
+	margin:0;
+}
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:.75em;
+	background-color:#E0E0E0;
+}
+h1, h2, h3, h4, h5 {
+	padding:2px;
+	margin:0;
+	color:white;
+}
+ul, ol {
+	color:#600;
+}
+td {
+	vertical-align:top;
+}
+pre.code, code {
+	color:#124;
+	font-size:110%;
+}
+pre {
+	padding:5px;
+	background-color:#F8FCFF;
+	border:1px solid #D0E8FF;
+	font-size:110%;
+	overflow:auto;
+}
+hr {
+	height:1px;
+	background-color:#036;
+	margin:2em 0;
+}
+.shadow-bottom {
+	overflow:hidden;
+	border-top:1px solid #666;
+	height:2px;
+	background-color:#999;
+	border-bottom:2px solid #DDD;
+}
+.header h1 {
+	background-color:#036;
+	font-size:250%;
+	padding-top:1em;
+	padding-bottom:0;
+}
+.header h2 {
+	background-color:#036;
+	font-size:120%;
+	padding-top:0;
+	padding-bottom:1em;
+}
+.header h3 {
+	background-color:#369;
+	font-size:110%;
+}
+.header h4 {
+	background-color:#69C;
+	font-size:110%;
+}
+.header h1, .header h2, .header h3, .header h4 {
+	padding-left:12px;
+}
+.header .identifier {
+	width:10em;
+	float:left;
+}
+.header .identified {
+	margin-left:10em;
+}
+
+.content {
+	padding:5px;
+}
+.content-block {
+	margin:2em 1em;
+	border:1px solid #69C;
+	border-right:2px solid #036;
+	border-bottom:2px solid #036;
+	background-color:white;
+}
+.content-block h2 {
+	background-color:#036;
+	padding-top:.5em;
+	padding-bottom:.5em;
+}
+.content-block h3 {
+	background-color:#369;
+	margin-bottom:.5em;
+}
+.content-block h4 {
+	margin-top:.5em;
+	margin-bottom:.5em;
+	background-color:#F0F0F0;
+	color:black;
+}
+.pane-left {
+	width:75%;
+	background-color:white;
+}
+.pane-right {
+	width:25%;
+	float:right;
+}
+.pane-right .content-block{
+	background-color:#2A5C8F;
+}
+.pane-right h2 {
+	background-color:#036;
+	font-size:110%;
+}
+.pane-right .on, .pane-right .off {
+	color:white;
+	padding:1px;
+	padding-left:.5em;
+}
+.pane-right .on {
+	background-color:#2A5C8F;
+}
+.pane-right .off {
+	background-color:#369;
+}
+.pane-right ul, .pane-right ul li {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.pane-right ul li a {
+	color:white;
+	text-decoration:none;
+}
+.pane-right ul li a:hover {
+	text-decoration:underline;
+}
+	</style>
+</head>
+<body>
+
+<div class="pane-right">
+	
+	<div class="content-block">
+		<h2>Properties</h2>
+		<ul>
+			<li class="on"><a href="#autoUpdateArrangement">autoUpdateArrangement</a></li><li class="off"><a href="#overlapBlocksEvents">overlapBlocksEvents</a></li>
+		</ul>
+	</div>
+	<div class="content-block">
+		<h2>Methods</h2>
+		<ul>
+			<li class="on"><a href="#initialize">initialize()</a></li><li class="off"><a href="#uninitialize">uninitialize()</a></li><li class="on"><a href="#getEventObject">getEventObject()</a></li><li class="off"><a href="#updateArrangement">updateArrangement()</a></li>
+		</ul>
+	</div>
+	
+</div>
+<div class="pane-left">
+<div class="header">
+	<h1>ButtonEventHandler class</h1>
+	<h2>com.senocular.events.ButtonEventHandler</h2>
+	<h3>&nbsp;</h3>
+	<h4>&nbsp;</h4>
+</div>
+<div class="shadow-bottom">&nbsp;</div>
+
+<div class="content-block">
+	<h2>Overview</h2>
+	<div class="content">
+		<h4>Author</h4>
+			Trevor McCauley
+			<br /><a href="http://www.senocular.com">http://www.senocular.com</a>
+		
+		<h4>Version</h4>
+			0.9.7
+		
+		<h4>Usage</h4>
+		<code>myButtonEvent:ButtonEvent = ButtonEventHandler.initialize(movie:MovieClip);
+		</code>
+		<h4>Description</h4>
+			The ButtonEventHandler class allows for timeline-based instances
+(MovieClips) to receive button events and allows for those events to
+bubble up to parent clips. This is contrary to normal button event
+behavior (Buttons and MovieClips) which starts at the parent clip, or the
+first parent clip with any kind of button event assigned to it, and prevents
+any child clips from receiving any button events at all. 
+A list of all supported events are as follows:
+<ul>
+<li>onPress			</li>
+<li>onRelease		</li>
+<li>onReleaseOutside	</li>
+<li>onRollOver		</li>
+<li>onRollOut		</li>
+<li>onDragOver		</li>
+<li>onDragOut		</li>
+<li>onMouseWithin	</li>
+</ul>
+ButtonEventHandler uses onEnterFrame and hitTest to determine what events are fired and
+when. This allows it to bypass the restriction of normal button event handling, however,
+because of this, it is also more CPU intensive than normal button events.
+Some differences between using ButtonEventHandler and normal button event handers:
+<ul>
+<li>Additional onMouseWithin event with ButtonEventHandler</li>
+<li>Events can bubble up into parent movie clips as opposed to being stopped as they are with normal buttons</li>
+<li>"Sequential" events are not called in order of operation but rather follow the order of movie clip precedence.
+For example, rolling onto a child clip from a parent clip will always call the onRollOver for
+the child clip before the onRollOut for the parent because the child clip has precedence despite the
+fact that technically the onRollOut happened before the onRollOver</li>
+<li>No finger cursor is given to movie clips using these events. If you want, you can add a normal null button
+event for this</li>
+<li>onReleaseOutside is always called for movie clips when the mouse is released over an area not within the
+movie clip clicked, even if released over an movie clip whose button event object's trackAsMenu property 
+is set to true</li>
+<li>onDragOver and onDragOut is called when the mouse is down has pressed an initialized movie clip, otherwise
+onRollOver and onRollOut is called</li>
+</ul>
+To enable a movie clip to receive events from ButtonEventHandler, you must first initialize it with 
+ButtonEventHandler.initialize (note that movie clips with child clips that have already been initialized
+will automatically be initialized themselves). The initialize method returns a ButtonEvent instance which is
+used to handle events sent managed by ButtonEventHandler. Using that instance's addEventListener method, 
+you can register objects to receive events detected by ButtonEventHandler relating to the movie clip
+initialized. The ButtonEvent object returned from initialization is automatically set as a
+listener to itself (and each event recognized by ButtonEventHandler). The event object passed to 
+listeners for those events will be the respective ButtonEvent instance.
+		
+		<h4>Example</h4>
+			<pre class="code">
+// Example 1: Using a basic event handler from a ButtonEvent object
+var my_mcEvent:ButtonEvent = ButtonEventHandler.initialize(my_mc);
+my_mcEvent.onPress = function(event:ButtonEvent){
+	// my_mc.gotoAndStop("_down");
+	event.target.gotoAndStop("_down");
+	// optional; prevents onPress from being called for parents
+	event.stopPropagation(); 
+}
+&nbsp;
+// Example 2: Using handleEvent with an initialized instance
+// (this can also be used on a ButtonEvent object)
+ButtonEventHandler.initialize(my_mc);
+my_mc.handleEvent = function(event:ButtonEvent){
+	switch(event.type){
+		case "onPress":
+			// my_mc.gotoAndStop("_down");
+			this.gotoAndStop("_down");
+			// optional; prevents onPress from being called for parents
+			event.stopPropagation();
+			break;
+		case "onRelease":
+			// my_mc.gotoAndStop("_up");
+			this.gotoAndStop("_up");
+			break;
+	}
+}
+</pre>
+Note that handleEvent can also be used with my_mc's associated ButtonEvent instance,
+though be cautious of the fact that the scope of the function would change from that
+of the movie clip to that of the ButtonEvent instance.
+		
+	</div>
+</div>
+
+
+
+<br />
+<div class="content-block">
+	<h2>Properties</h2>
+	<div class="content">
+		<a name="autoUpdateArrangement">&nbsp;</a>
+		<h3>autoUpdateArrangement</h3>
+		<h4>Usage</h4>
+		<code>ButtonEventHandler.autoUpdateArrangement = value:Boolean
+		</code>
+		<h4>Description</h4>
+			Determines whether or not arrangement for handled movie clips
+is automatically updated every frame. If depths are altered for
+movie clips receiving events, this should be kept false.
+		
+		<h4>Default</h4>
+			false
+		
+		
+		
+	<hr />
+		<a name="overlapBlocksEvents">&nbsp;</a>
+		<h3>overlapBlocksEvents</h3>
+		<h4>Usage</h4>
+		<code>ButtonEventHandler.overlapBlocksEvents = value:Boolean
+		</code>
+		<h4>Description</h4>
+			Determines whether or not overlapping prevents events for objects in
+the same timeline (no parent/child relationships) from triggering. If
+true, the behavior is like that of normal Flash buttons where buttons
+above other buttons, prevent the buttons below from receiving events.
+		
+		<h4>Default</h4>
+			true
+		
+		
+		<h4>See</h4>
+			<a href="#autoUpdateArrangement">autoUpdateArrangement</a>
+		
+	</div>
+</div>
+
+<br />
+<div class="content-block">
+	<h2>Methods</h2>
+	<div class="content">
+		<a name="initialize">&nbsp;</a>
+		<h3>initialize</h3>
+		<h4>Usage</h4>
+		<code>event:ButtonEvent = ButtonEventHandler.initialize(target:MovieClip);
+		</code>
+		<h4>Description</h4>
+			Initializes a target timeline instance (MovieClip) to be registered for receiving events
+from the ButtonEventHandler class. When initialized, the target as well as all its parents are 
+initialized too, if not already. The returned ButtonEvent object can be used to handle
+received events.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>target</b></dt>
+				<dd>Movie clip which is to receive events from
+ButtonEventHandler. This movie clip needs to be detectable with hitTest.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		ButtonEvent object associated with the target movie clip passed. This is the same
+object sent to event handlers when they are called.
+		
+		
+		
+	<hr />
+		<a name="uninitialize">&nbsp;</a>
+		<h3>uninitialize</h3>
+		<h4>Usage</h4>
+		<code>success:Boolean = ButtonEventHandler.initialize(target:MovieClip);
+		</code>
+		<h4>Description</h4>
+			Removes the target movie clip from initialization preventing from receiving further events
+from ButtonEventHandler.  Any child movie clips are removed along with target.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>target</b></dt>
+				<dd>Movie clip which is to be removed from receiving events from
+ButtonEventHandler.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		True or false depending on whether or not the removal was successful.
+		
+		
+		
+	<hr />
+		<a name="getEventObject">&nbsp;</a>
+		<h3>getEventObject</h3>
+		<h4>Usage</h4>
+		<code>event:ButtonEvent = ButtonEventHandler.getEventObject(movie:MovieClip);
+		</code>
+		<h4>Description</h4>
+			Returns an event object associated with the target movie clip.  If no ButtonEvent is associated with
+the target, the target will be initialized and a new ButtonEvent object will be created and returned.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>target</b></dt>
+				<dd>Movie clip to get a ButtonEvent object for</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		ButtonEvent object associated with the target movie clip passed. This is the same
+object sent to event handlers when they are called.
+		
+		
+		
+	<hr />
+		<a name="updateArrangement">&nbsp;</a>
+		<h3>updateArrangement</h3>
+		<h4>Usage</h4>
+		<code>ButtonEventHandler.updateArrangement();
+		</code>
+		<h4>Description</h4>
+			Updates the arrangement and precedence of movie clips handled by
+ButtonEventHandler. This will automatically be called every frame
+if autoUpdateArrangement is true. You would only need to call this if
+autoUpdateArrangement is false and you've altered the depths of any movie clips
+receiving events from ButtonEventHandler.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>instances</b></dt>
+				<dd>Optional parameter specifying which movie clips are
+to be arranged. Only used internally within the class.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		
+		Nothing.
+		
+		<h4>See</h4>
+			<a href="#autoUpdateArrangement">autoUpdateArrangement</a>
+		
+	</div>
+</div>
+
+
+<br />
+&nbsp;
+</div>
+
+</body>
+</html>

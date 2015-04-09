@@ -1,0 +1,134 @@
+/**
+	@Name: FPSTimer
+	@Author: HobisJung(jhb0b@naver.com)
+	@Blog: http://blog.naver.com/jhb0b
+	@Date: 2013-05-14
+	@Using:
+	{
+	}
+*/
+package hb.frame
+{
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import hb.utils.ObjectUtil;
+
+	// 상속해서 쓰지마 ㅠㅠ
+	public final class FPSTimer
+	{
+		// :: 생성자
+		public function FPSTimer(delayFrame:int, repeatCount:int = 0)
+		{
+			this.delayFrame = delayFrame;
+			this.repeatCount = repeatCount;
+		}
+
+		// :: 엔터프래임
+		private function p_enterFrame(event:Event):void
+		{
+			if (this.m_nowFrame >= this.delayFrame)
+			{
+				this.m_nowFrame = 0;
+				this.m_currentCount ++;
+
+				ObjectUtil.dispatchCallBack(this, {type: 'update'});
+
+				if
+				(
+					(this.m_currentCount >= this.repeatCount) &&
+					(this.repeatCount > 0)
+				)
+				{
+					this.stop();
+
+					ObjectUtil.dispatchCallBack(this, {type: 'updateEnd'});
+				}
+			}
+			else
+			{
+				this.m_nowFrame ++;
+			}
+		}
+
+		// :: 시작
+		public function start():void
+		{
+			if (!this.m_running)
+			{
+				this.m_nowFrame = 0;
+				this.m_currentCount = 0;
+
+				_USE_SPRITE.addEventListener(Event.ENTER_FRAME, this.p_enterFrame);
+
+				this.m_running = true;
+			}
+		}
+
+		// :: 정지
+		public function stop():void
+		{
+			if (this.m_running)
+			{
+				_USE_SPRITE.removeEventListener(Event.ENTER_FRAME, this.p_enterFrame);
+
+				this.m_running = false;
+			}
+		}
+
+		// :: 일시정지(토글)
+		public function pause():void
+		{
+			if (this.m_running)
+			{
+				if (this.m_pause)
+				{
+					_USE_SPRITE.addEventListener(Event.ENTER_FRAME, this.p_enterFrame);
+
+					this.m_pause = false;
+				}
+				else
+				{
+					_USE_SPRITE.removeEventListener(Event.ENTER_FRAME, this.p_enterFrame);
+
+					this.m_pause = true;
+				}
+			}
+		}
+
+		// :: 현재 진행중 여부
+		public function get running():Boolean
+		{
+			return this.m_running;
+		}
+
+		// :: 현재 카운트
+		public function get currentCount():int
+		{
+			return this.m_currentCount;
+		}
+
+		// :: 현재 프래임
+		public function get nowFrame():int
+		{
+			return this.m_nowFrame;
+		}
+
+
+		private static const _USE_SPRITE:Sprite = new Sprite();
+		private var m_running:Boolean = false;
+		private var m_pause:Boolean = false;
+
+		private var m_currentCount:int;
+		private var m_nowFrame:int;
+
+		public var repeatCount:int;
+		public var delayFrame:int;
+
+		public var name:String = null;
+
+		// - 콜백함수 참조
+		public var onCallBack:Function = null;
+
+	}
+
+}

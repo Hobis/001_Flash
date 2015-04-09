@@ -1,0 +1,575 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>ButtonEvent class</title>
+	<style type="text/css">
+html, body, div {
+	padding:0;
+	margin:0;
+}
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:.75em;
+	background-color:#E0E0E0;
+}
+h1, h2, h3, h4, h5 {
+	padding:2px;
+	margin:0;
+	color:white;
+}
+ul, ol {
+	color:#600;
+}
+td {
+	vertical-align:top;
+}
+pre.code, code {
+	color:#124;
+	font-size:110%;
+}
+pre {
+	padding:5px;
+	background-color:#F8FCFF;
+	border:1px solid #D0E8FF;
+	font-size:110%;
+	overflow:auto;
+}
+hr {
+	height:1px;
+	background-color:#036;
+	margin:2em 0;
+}
+.shadow-bottom {
+	overflow:hidden;
+	border-top:1px solid #666;
+	height:2px;
+	background-color:#999;
+	border-bottom:2px solid #DDD;
+}
+.header h1 {
+	background-color:#036;
+	font-size:250%;
+	padding-top:1em;
+	padding-bottom:0;
+}
+.header h2 {
+	background-color:#036;
+	font-size:120%;
+	padding-top:0;
+	padding-bottom:1em;
+}
+.header h3 {
+	background-color:#369;
+	font-size:110%;
+}
+.header h4 {
+	background-color:#69C;
+	font-size:110%;
+}
+.header h1, .header h2, .header h3, .header h4 {
+	padding-left:12px;
+}
+.header .identifier {
+	width:10em;
+	float:left;
+}
+.header .identified {
+	margin-left:10em;
+}
+
+.content {
+	padding:5px;
+}
+.content-block {
+	margin:2em 1em;
+	border:1px solid #69C;
+	border-right:2px solid #036;
+	border-bottom:2px solid #036;
+	background-color:white;
+}
+.content-block h2 {
+	background-color:#036;
+	padding-top:.5em;
+	padding-bottom:.5em;
+}
+.content-block h3 {
+	background-color:#369;
+	margin-bottom:.5em;
+}
+.content-block h4 {
+	margin-top:.5em;
+	margin-bottom:.5em;
+	background-color:#F0F0F0;
+	color:black;
+}
+.pane-left {
+	width:75%;
+	background-color:white;
+}
+.pane-right {
+	width:25%;
+	float:right;
+}
+.pane-right .content-block{
+	background-color:#2A5C8F;
+}
+.pane-right h2 {
+	background-color:#036;
+	font-size:110%;
+}
+.pane-right .on, .pane-right .off {
+	color:white;
+	padding:1px;
+	padding-left:.5em;
+}
+.pane-right .on {
+	background-color:#2A5C8F;
+}
+.pane-right .off {
+	background-color:#369;
+}
+.pane-right ul, .pane-right ul li {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.pane-right ul li a {
+	color:white;
+	text-decoration:none;
+}
+.pane-right ul li a:hover {
+	text-decoration:underline;
+}
+	</style>
+</head>
+<body>
+
+<div class="pane-right">
+	
+	<div class="content-block">
+		<h2>Properties</h2>
+		<ul>
+			<li class="on"><a href="#type">type</a></li><li class="off"><a href="#target">target</a></li><li class="on"><a href="#currentTarget">currentTarget</a></li><li class="off"><a href="#mouseWithin">mouseWithin</a></li><li class="on"><a href="#pressed">pressed</a></li><li class="off"><a href="#trackAsMenu">trackAsMenu</a></li><li class="on"><a href="#overlapBlocksEvents">overlapBlocksEvents</a></li>
+		</ul>
+	</div>
+	<div class="content-block">
+		<h2>Methods</h2>
+		<ul>
+			<li class="on"><a href="#stopPropagation">stopPropagation()</a></li><li class="off"><a href="#addEventListener">addEventListener()</a></li><li class="on"><a href="#removeEventListener">removeEventListener()</a></li><li class="off"><a href="#handleEvent">handleEvent()</a></li>
+		</ul>
+	</div>
+	<div class="content-block">
+		<h2>Events</h2>
+		<ul>
+			<li class="on"><a href="#onPress">onPress()</a></li><li class="off"><a href="#onRelease">onRelease()</a></li><li class="on"><a href="#onReleaseOutside">onReleaseOutside()</a></li><li class="off"><a href="#onRollOver">onRollOver()</a></li><li class="on"><a href="#onRollOut">onRollOut()</a></li><li class="off"><a href="#onDragOver">onDragOver()</a></li><li class="on"><a href="#onDragOut">onDragOut()</a></li><li class="off"><a href="#onMouseWithin">onMouseWithin()</a></li>
+		</ul>
+	</div>
+</div>
+<div class="pane-left">
+<div class="header">
+	<h1>ButtonEvent class</h1>
+	<h2>com.senocular.events.ButtonEvent</h2>
+	<h3>&nbsp;</h3>
+	<h4>&nbsp;</h4>
+</div>
+<div class="shadow-bottom">&nbsp;</div>
+
+<div class="content-block">
+	<h2>Overview</h2>
+	<div class="content">
+		<h4>Author</h4>
+			Trevor McCauley
+			<br /><a href="http://www.senocular.com">http://www.senocular.com</a>
+		
+		<h4>Version</h4>
+			0.9.7
+		
+		<h4>Usage</h4>
+		<code>myButtonEvent:ButtonEvent = ButtonEventHandler.initialize(myMovieClip:Object);
+		</code>
+		<h4>Description</h4>
+			The ButtonEvent class defines event objects used by ButtonEventHandler.
+ButtonEvent instances contain properties regarding movie clips handled by 
+ButtonEventHandler and manages the events they receive. These instances
+are created by ButtonEventHandler and returned from a call to
+ButtonEventHandler.initialize.  It is also the object provided
+to event handlers and provides information regarding the event and the
+state of the movie clip receiving it. Other objects can be set to listen to 
+events handled by ButtonEvent instances using addEventListener.
+		
+		<h4>Example</h4>
+			<pre class="code">
+var my_mcEvent:ButtonEvent = ButtonEventHandler.initialize(my_mc);
+my_mcEvent.onPress = function(event:ButtonEvent){
+	// my_mc.gotoAndStop("_down");
+	event.target.gotoAndStop("_down");
+	// optional; prevents onPress from being called for parents
+	event.stopPropagation();
+}
+</pre>
+		
+	</div>
+</div>
+
+
+
+<br />
+<div class="content-block">
+	<h2>Properties</h2>
+	<div class="content">
+		<a name="type">&nbsp;</a>
+		<h3>type</h3>
+		<h4>Usage</h4>
+		<code>event:String = myButtonEvent.type;
+		</code>
+		<h4>Description</h4>
+			A String spcifying the current event. This will be either:
+onPress, onRelease, onReleaseOutside, onRollOver, onRollOut, 
+onDragOver, onDragOut, or onMouseWithin.
+		
+		
+		
+		
+	<hr />
+		<a name="target">&nbsp;</a>
+		<h3>target</h3>
+		<h4>Usage</h4>
+		<code>movie:MovieClip = myButtonEvent.target;
+		</code>
+		<h4>Description</h4>
+			The movie clip associated with this button event
+		
+		
+		
+		<h4>See</h4>
+			<a href="#currentTarget">currentTarget</a>
+		
+	<hr />
+		<a name="currentTarget">&nbsp;</a>
+		<h3>currentTarget</h3>
+		<h4>Usage</h4>
+		<code>movie:MovieClip = myButtonEvent.currentTarget;
+		</code>
+		<h4>Description</h4>
+			The first movie clip that initially encountered the current event.
+		
+		
+		
+		<h4>See</h4>
+			<a href="#target">target</a>
+		
+	<hr />
+		<a name="mouseWithin">&nbsp;</a>
+		<h3>mouseWithin</h3>
+		<h4>Usage</h4>
+		<code>movieMouseWithin:Boolean = myButtonEvent.mouseWithin;
+		</code>
+		<h4>Description</h4>
+			Specifies whether or not the mouse is within the current target.
+		
+		<h4>Default</h4>
+			false
+		
+		
+		
+	<hr />
+		<a name="pressed">&nbsp;</a>
+		<h3>pressed</h3>
+		<h4>Usage</h4>
+		<code>moviePressed:Boolean = myButtonEvent.mouseWithin;
+		</code>
+		<h4>Description</h4>
+			Specifies whether or not the mouse is down and the current
+target has been pressed.
+		
+		<h4>Default</h4>
+			false
+		
+		
+		
+	<hr />
+		<a name="trackAsMenu">&nbsp;</a>
+		<h3>trackAsMenu</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.trackAsMenu = value:Boolean;
+		</code>
+		<h4>Description</h4>
+			Determines whether or not the target will behave as a menu where
+it can receive events despite another movie clip having already been
+pressed (similar to Button and MovieClip trackAsMenu property).
+		
+		<h4>Default</h4>
+			false
+		
+		
+		
+	<hr />
+		<a name="overlapBlocksEvents">&nbsp;</a>
+		<h3>overlapBlocksEvents</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.overlapBlocksEvents = value:Boolean
+		</code>
+		<h4>Description</h4>
+			Determines whether or not overlapping prevents events for objects in
+the same timeline (no parent/child relationships)  under the target clip
+for this ButtonEvent instance from triggering. If true,
+the behavior is like that of normal Flash buttons where buttons
+above other buttons, prevent the buttons below from receiving events.
+Note that this property only pertains when
+ButtonEventHandler.overlapBlocksEvents is false.
+		
+		<h4>Default</h4>
+			false
+		
+		
+		
+	</div>
+</div>
+
+<br />
+<div class="content-block">
+	<h2>Methods</h2>
+	<div class="content">
+		<a name="stopPropagation">&nbsp;</a>
+		<h3>stopPropagation</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.stopPropagation();
+		</code>
+		<h4>Description</h4>
+			Used to prevent events from bubbling to parent movie clips. The event stopped
+is the current event as specified in this ButtonEvent's type property. This
+method would most commonly be used within an event handler for an event
+captured by ButtonEventHandler.
+		
+		
+		<h4>Returns</h4>
+		
+		Nothing.
+		
+		
+	<hr />
+		<a name="addEventListener">&nbsp;</a>
+		<h3>addEventListener</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.addEventListener(event:String, listener:Object);
+		</code>
+		<h4>Description</h4>
+			Registers a listener object with this ButtonEvent instance that is
+broadcasting an event (from the target movie clip). 
+When the event occurs, the listener object or function is notified.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>A string that is the name of the event.</dd>
+			</dl><dl>
+				<dt><b>listener</b></dt>
+				<dd>A reference to a listener object or function to
+handle the event.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		nothing.
+		
+		
+		
+	<hr />
+		<a name="removeEventListener">&nbsp;</a>
+		<h3>removeEventListener</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.removeEventListener(event:String, listener:Object);
+		</code>
+		<h4>Description</h4>
+			Removes a listener from receiving events from this ButtonEvent instance.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>A string that is the name of the event.</dd>
+			</dl><dl>
+				<dt><b>listener</b></dt>
+				<dd>A reference to a listener object or function to
+handle the event.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		nothing.
+		
+		
+		
+	<hr />
+		<a name="handleEvent">&nbsp;</a>
+		<h3>handleEvent</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.handleEvent = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Define your own handleEvent handler to manage events
+sent to the target movie clip. The handleEvent handler can
+be defined to a ButtonEvent object (received from calling
+ButtonEventHandler.getEventObject(target)) or to the target
+movie clip. It will be called every time an event is triggered.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>eventObject</b></dt>
+				<dd>The current ButtonEvent event object.</dd>
+			</dl>
+		
+		<h4>Returns</h4>
+		nothing.
+		
+		
+		
+	</div>
+</div>
+
+<br />
+<div class="content-block">
+	<h2>Events</h2>
+	<div class="content">
+		<a name="onPress">&nbsp;</a>
+		<h3>onPress</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onPress = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is pressed over a target movie clip.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onRelease">&nbsp;</a>
+		<h3>onRelease</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onRelease = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is released over a target movie clip that was pressed.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onReleaseOutside">&nbsp;</a>
+		<h3>onReleaseOutside</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onRelease = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is released over an area not above the target movie clip that was pressed.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onRollOver">&nbsp;</a>
+		<h3>onRollOver</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onRollOver = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is moves over a target movie clip.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onRollOut">&nbsp;</a>
+		<h3>onRollOut</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onRollOut = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is moves off a target movie clip.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onDragOver">&nbsp;</a>
+		<h3>onDragOver</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onDragOver = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is moves over a target movie clip that was pressed.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onDragOut">&nbsp;</a>
+		<h3>onDragOut</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onDragOut = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered when the mouse is moves off a target movie clip that was pressed.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	<hr />
+		<a name="onMouseWithin">&nbsp;</a>
+		<h3>onMouseWithin</h3>
+		<h4>Usage</h4>
+		<code>myButtonEvent.onMouseWithin = function(event:ButtonEvent){ ... };
+		</code>
+		<h4>Description</h4>
+			Triggered every frame when the mouse is over a target movie clip.
+		
+		<h4>Parameters</h4>
+			<dl>
+				<dt><b>event</b></dt>
+				<dd>The ButtonEvent object associated with the current target movie clip</dd>
+			</dl>
+		
+		
+		
+	</div>
+</div>
+<br />
+&nbsp;
+</div>
+
+</body>
+</html>
