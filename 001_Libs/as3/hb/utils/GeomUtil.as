@@ -1,4 +1,4 @@
-package hb.utils
+﻿package hb.utils
 {
 /**
 	@Name: GeomUtil
